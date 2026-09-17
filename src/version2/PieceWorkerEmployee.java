@@ -13,13 +13,12 @@ public class PieceWorkerEmployee {
     }
 
     public PieceWorkerEmployee(int empID, MyName empName, MyDate birthDate, MyDate dateHired) {
-        this.empID = empID;
-        this.empName = empName;
-        this.birthDate = birthDate;
-        this.dateHired = dateHired;
+        this(empID, empName, birthDate, dateHired, 0, 0);
     }
 
-    public PieceWorkerEmployee(int empID, MyName empName, MyDate birthDate, MyDate dateHired, int totalPiecesFinished, double ratePerPiece) {
+    public PieceWorkerEmployee(int empID, MyName empName, MyDate birthDate,
+                               MyDate dateHired, int totalPiecesFinished,
+                               double ratePerPiece) {
         this.empID = empID;
         this.empName = empName;
         this.birthDate = birthDate;
@@ -77,30 +76,23 @@ public class PieceWorkerEmployee {
     }
 
     public double computeSalary() {
-        double BasePay = totalPiecesFinished * ratePerPiece;
-        double BonusPay = 0;
-        double Salary = 0;
+        double basePay = totalPiecesFinished * ratePerPiece;
+        int bonusGroups = totalPiecesFinished / 100;
+        double bonusPay = bonusGroups * 10 * ratePerPiece;
 
-        while (totalPiecesFinished >= 100) {
-            totalPiecesFinished = totalPiecesFinished - 100;
-            BonusPay = BonusPay + (10 * ratePerPiece);
-        }
-
-        if (totalPiecesFinished < 100) {
-            Salary = BasePay + BonusPay;
-        }
-        return Salary;
+        return basePay + bonusPay;
     }
 
-    public void displayPieceWorkerEmployee(){
-        System.out.println("PieceWorkerEmployee{\n");
-        System.out.println("EmployeeID: "+ this.empID);
-        System.out.println("\nEmployeeName: "+ this.empName);
-        System.out.println("\nEmployeeBirthDate: "+ this.birthDate);
-        System.out.println("\nEmployeeDateHired: "+ this.dateHired);
-        System.out.println("\nTotalPiecesFinished: "+ this.totalPiecesFinished);
-        System.out.println("\nRatePerPiece: "+ this.ratePerPiece);
-        System.out.println("\n}");
+    public void displayPieceWorkerEmployee() {
+        System.out.println("PieceWorkerEmployee{");
+        System.out.println("EmployeeID: " + empID);
+        System.out.println("EmployeeName: " + empName);
+        System.out.println("EmployeeBirthDate: " + birthDate);
+        System.out.println("EmployeeDateHired: " + dateHired);
+        System.out.println("TotalPiecesFinished: " + totalPiecesFinished);
+        System.out.println("RatePerPiece: " + ratePerPiece);
+        System.out.println("TotalSalary: " + computeSalary());
+        System.out.println("}");
     }
 
     @Override
@@ -113,9 +105,6 @@ public class PieceWorkerEmployee {
                 "\nTotalPiecesFinished: " + totalPiecesFinished +
                 "\nRatePerPiece: " + ratePerPiece +
                 "\nTotalSalary: " + computeSalary() +
-                '}';
+                "\n}";
     }
-
 }
-
-

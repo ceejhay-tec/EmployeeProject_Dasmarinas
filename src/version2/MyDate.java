@@ -1,13 +1,14 @@
 package version2;
 
-import java.util.Arrays;
-
 public class MyDate {
     private int day;
     private int month;
     private int year;
 
-    private final String[] mon = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    private final String[] mon = {
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
 
     public MyDate() {
         this(1, 1, 2000);
@@ -24,7 +25,7 @@ public class MyDate {
     }
 
     public void setDay(int day) {
-        if (day>=1 && day<=31){
+        if (day >= 1 && day <= 31) {
             this.day = day;
         } else {
             this.day = 1;
@@ -36,7 +37,7 @@ public class MyDate {
     }
 
     public void setMonth(int month) {
-        if (month>=1 && month<=12){
+        if (month >= 1 && month <= 12) {
             this.month = month;
         } else {
             this.month = 1;
@@ -51,12 +52,16 @@ public class MyDate {
         this.year = year;
     }
 
-    public void displayDate(){
-        System.out.println(day + mon[month-1] + year);
+    public void displayDate() {
+        System.out.println(day + mon[month - 1] + year);
+    }
+
+    public boolean isMonth(int currentMonth) {
+        return this.month == currentMonth;
     }
 
     @Override
     public String toString() {
-        return day + mon[month-1] + year;
+        return day + mon[month - 1] + year;
     }
 }

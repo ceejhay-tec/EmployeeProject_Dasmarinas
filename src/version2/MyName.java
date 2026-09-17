@@ -6,9 +6,6 @@ public class MyName {
     private String lastName;
     private String suffix;
 
-    private String isMid = middleName.isEmpty()? "" : " " + middleName;
-    private String isSuf = suffix.isEmpty()? "" : " " + suffix;
-
     public MyName() {
         this("N/A", "N/A", "N/A", "");
     }
@@ -60,15 +57,28 @@ public class MyName {
         this.suffix = suffix;
     }
 
-    public void displayName(){
-        System.out.println(lastName + ", " + firstName + " " + (isMid.charAt(0)) + ". " + isSuf + ".");
+    public void displayName() {
+        String isMid = middleName.equals("N/A") || middleName.isEmpty()
+                ? ""
+                : " " + middleName.charAt(0) + ".";
+
+        String isSuf = suffix.isEmpty()
+                ? ""
+                : " " + suffix;
+
+        System.out.println(lastName + ", " + firstName + isMid + isSuf);
     }
 
     @Override
     public String toString() {
-        return lastName + ", "
-                 + firstName + " "
-                 + (isMid.charAt(0)) + ". "
-                 + isSuf ;
+        String isMid = middleName.equals("N/A") || middleName.isEmpty()
+                ? ""
+                : " " + middleName.charAt(0) + ".";
+
+        String isSuf = suffix.isEmpty()
+                ? ""
+                : " " + suffix;
+
+        return lastName + ", " + firstName + isMid + isSuf;
     }
 }
