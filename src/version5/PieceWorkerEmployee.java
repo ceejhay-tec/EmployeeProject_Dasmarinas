@@ -1,4 +1,4 @@
-package version4;
+package version5;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -7,9 +7,7 @@ public class PieceWorkerEmployee extends Employee {
     private int totalPiecesFinished;
     private double ratePerPiece;
 
-    public PieceWorkerEmployee() {
-        super();
-    }
+    public PieceWorkerEmployee() { super(); }
 
     public PieceWorkerEmployee(int empID, Name empName, MyDate birthDate, MyDate dateHired,
                                int totalPiecesFinished, double ratePerPiece) {
@@ -18,26 +16,15 @@ public class PieceWorkerEmployee extends Employee {
         setRatePerPiece(ratePerPiece);
     }
 
-    public int getTotalPiecesFinished() {
-        return totalPiecesFinished;
+    public int getTotalPiecesFinished() { return totalPiecesFinished; }
+    public void setTotalPiecesFinished(int value) {
+        if (value < 0) throw new IllegalArgumentException("Pieces finished cannot be negative");
+        totalPiecesFinished = value;
     }
-
-    public void setTotalPiecesFinished(int totalPiecesFinished) {
-        if (totalPiecesFinished < 0) {
-            throw new IllegalArgumentException("Pieces finished cannot be negative");
-        }
-        this.totalPiecesFinished = totalPiecesFinished;
-    }
-
-    public double getRatePerPiece() {
-        return ratePerPiece;
-    }
-
-    public void setRatePerPiece(double ratePerPiece) {
-        if (ratePerPiece < 0) {
-            throw new IllegalArgumentException("Piece rate cannot be negative");
-        }
-        this.ratePerPiece = ratePerPiece;
+    public double getRatePerPiece() { return ratePerPiece; }
+    public void setRatePerPiece(double value) {
+        if (value < 0) throw new IllegalArgumentException("Piece rate cannot be negative");
+        ratePerPiece = value;
     }
 
     private double basePay() {
@@ -45,42 +32,32 @@ public class PieceWorkerEmployee extends Employee {
                 + (totalPiecesFinished / 100) * 10 * ratePerPiece;
     }
 
+    @Override
     public double computeSalary(int currentMonth) {
         return basePay() + birthdayBonus(currentMonth);
     }
 
-    public void displayPieceWorkerEmployee() {
-        System.out.println(this);
-    }
+    public void displayPieceWorkerEmployee() { System.out.println(this); }
 
     @Override
     public String toString() {
-        return String.format(
-                Locale.US,
-                "PieceWorkerEmployee{\n" +
-                        "Employee ID: %d" +
+        return String.format(Locale.US, "PieceWorkerEmployee{\nEmployee ID: %d" +
                         ", \nEmployee Name: %s" +
                         ", \nBirth Date: %s" +
                         ", \nDate Hired: %s" +
                         ", \nTotal Pieces Finished: %d" +
                         ", \nRate Per Piece: ₱%.2f" +
-                        ", \nSalary: ₱%.2f" +
-                        "\n}",
+                        ", \nSalary: ₱%.2f\n}",
                 getEmpID(), getEmpName(), getBirthDate(), getDateHired(),
-                totalPiecesFinished, ratePerPiece, computeSalary(-1));
+                totalPiecesFinished, ratePerPiece, computeSalary());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof PieceWorkerEmployee)) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (!(obj instanceof PieceWorkerEmployee)) return false;
         PieceWorkerEmployee other = (PieceWorkerEmployee) obj;
-        return super.equals(other)
-                && totalPiecesFinished == other.totalPiecesFinished
+        return super.equals(other) && totalPiecesFinished == other.totalPiecesFinished
                 && Double.compare(ratePerPiece, other.ratePerPiece) == 0;
     }
 

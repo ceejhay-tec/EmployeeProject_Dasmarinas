@@ -1,4 +1,4 @@
-package version4;
+package version5;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -6,9 +6,7 @@ import java.util.Objects;
 public class BasePlusCommissionEmployee extends CommissionEmployee {
     private double baseSalary;
 
-    public BasePlusCommissionEmployee() {
-        super();
-    }
+    public BasePlusCommissionEmployee() { super(); }
 
     public BasePlusCommissionEmployee(int empID, Name empName, MyDate birthDate, MyDate dateHired,
                                       double totalSale, double baseSalary) {
@@ -16,15 +14,14 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
         setBaseSalary(baseSalary);
     }
 
-    public double getBaseSalary() {
-        return baseSalary;
+    public double getBaseSalary() { return baseSalary; }
+    public void setBaseSalary(double value) {
+        if (value < 0) throw new IllegalArgumentException("Base salary cannot be negative");
+        baseSalary = value;
     }
 
-    public void setBaseSalary(double baseSalary) {
-        if (baseSalary < 0) {
-            throw new IllegalArgumentException("Base salary cannot be negative");
-        }
-        this.baseSalary = baseSalary;
+    private double totalSaleWithCommission() {
+        return getTotalSale() * getCommissionRate();
     }
 
     @Override
@@ -32,49 +29,32 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
         return baseSalary + totalSaleWithCommission() + birthdayBonus(currentMonth);
     }
 
-    private double totalSaleWithCommission() {
-        return getTotalSale() * getCommissionRate();
-    }
-
-    public void displayBasePlusCommissionEmployee() {
-        System.out.println(this);
-    }
+    public void displayBasePlusCommissionEmployee() { System.out.println(this); }
 
     @Override
     public String toString() {
-        return String.format(
-                Locale.US,
-                "BasePlusCommissionEmployee{\n" +
-                        "Employee ID: %d" +
+        return String.format(Locale.US, "BasePlusCommissionEmployee{\nEmployee ID: %d" +
                         ", \nEmployee Name: %s" +
                         ", \nBirth Date: %s" +
                         ", \nDate Hired: %s" +
                         ", \nTotal Sale: ₱%.2f" +
                         ", \nBase Salary: ₱%.2f" +
                         ", \nCommission: ₱%.2f" +
-                        ", \nSalary: ₱%.2f" +
-                        "\n}",
+                        ", \nSalary: ₱%.2f\n}",
                 getEmpID(), getEmpName(), getBirthDate(), getDateHired(),
-                getTotalSale(), baseSalary, totalSaleWithCommission(),
-                computeSalary(-1));
+                getTotalSale(), baseSalary, totalSaleWithCommission(), computeSalary());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof BasePlusCommissionEmployee)) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (!(obj instanceof BasePlusCommissionEmployee)) return false;
         BasePlusCommissionEmployee other = (BasePlusCommissionEmployee) obj;
         return super.equals(other) && Double.compare(baseSalary, other.baseSalary) == 0;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), baseSalary);
-    }
+    public int hashCode() { return Objects.hash(super.hashCode(), baseSalary); }
 
     @Override
     public BasePlusCommissionEmployee clone() throws CloneNotSupportedException {

@@ -1,4 +1,4 @@
-package version4;
+package version5;
 
 import java.util.Objects;
 
@@ -19,43 +19,25 @@ public class Employee implements Cloneable {
         this.dateHired = dateHired == null ? new MyDate() : dateHired;
     }
 
-    public int getEmpID() {
-        return empID;
+    public int getEmpID() { return empID; }
+    public void setEmpID(int empID) { this.empID = empID; }
+    public Name getEmpName() { return empName; }
+    public void setEmpName(Name empName) { this.empName = empName == null ? new Name() : empName; }
+    public MyDate getBirthDate() { return birthDate; }
+    public void setBirthDate(MyDate birthDate) { this.birthDate = birthDate == null ? new MyDate() : birthDate; }
+    public MyDate getDateHired() { return dateHired; }
+    public void setDateHired(MyDate dateHired) { this.dateHired = dateHired == null ? new MyDate() : dateHired; }
+
+    public double computeSalary(int currentMonth) {
+        return 0.0;
     }
 
-    public void setEmpID(int empID) {
-        this.empID = empID;
-    }
-
-    public Name getEmpName() {
-        return empName;
-    }
-
-    public void setEmpName(Name empName) {
-        this.empName = empName == null ? new Name() : empName;
-    }
-
-    public MyDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(MyDate birthDate) {
-        this.birthDate = birthDate == null ? new MyDate() : birthDate;
-    }
-
-    public MyDate getDateHired() {
-        return dateHired;
-    }
-
-    public void setDateHired(MyDate dateHired) {
-        this.dateHired = dateHired == null ? new MyDate() : dateHired;
+    public double computeSalary() {
+        return computeSalary(-1);
     }
 
     protected double birthdayBonus(int currentMonth) {
-        if (birthDate.getMonth() == currentMonth) {
-            return 5000.00;
-        }
-        return 0.00;
+        return birthDate.getMonth() == currentMonth ? 5000.00 : 0.00;
     }
 
     public void displayEmployee() {
@@ -74,17 +56,11 @@ public class Employee implements Cloneable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
         Employee other = (Employee) obj;
-        return empID == other.empID
-                && empName.equals(other.empName)
-                && birthDate.equals(other.birthDate)
-                && dateHired.equals(other.dateHired);
+        return empID == other.empID && empName.equals(other.empName)
+                && birthDate.equals(other.birthDate) && dateHired.equals(other.dateHired);
     }
 
     @Override

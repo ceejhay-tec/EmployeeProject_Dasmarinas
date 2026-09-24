@@ -46,9 +46,8 @@ public class HourlyEmployee extends Employee {
                 : 40 * ratePerHour + (totalHoursWorked - 40) * ratePerHour * 1.5;
     }
 
-    @Override
     public double computeSalary(int currentMonth) {
-        return basePay() + super.computeSalary(currentMonth);
+        return basePay() + birthdayBonus(currentMonth);
     }
 
     public void displayHourlyEmployee() {
@@ -69,7 +68,7 @@ public class HourlyEmployee extends Employee {
                         ", \nSalary: ₱%.2f" +
                         "\n}",
                 getEmpID(), getEmpName(), getBirthDate(), getDateHired(),
-                totalHoursWorked, ratePerHour, computeSalary());
+                totalHoursWorked, ratePerHour, computeSalary(-1));
     }
 
     @Override
